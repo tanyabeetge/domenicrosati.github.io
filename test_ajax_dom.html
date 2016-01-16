@@ -5,13 +5,13 @@
 <script>
 function myFunction() {
   var callbackFunction = function(data) {
-    var weather = data.query.results.channel.item.condition;
-    var temp1 =(weather.temp);
-    var conditions = (weather.text);
+   document.getElementById("temp1").innerHTML = data.query.results.channel.item.condition.temp;
+    document.getElementById("conditions").innerHTML =  data.query.results.channel.item.condition.text;
+
   
   };
-    document.getElementById("temp1").innerHTML = temp1;
-  document.getElementById("conditions").innerHTML = conditions;
+  
+
   };
 </script>
 <script src="https://query.yahooapis.com/v1/public/yql?q=select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text='Halifax, ns')&format=json&callback=callbackFunction"></script>
