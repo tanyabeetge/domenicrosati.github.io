@@ -6,10 +6,10 @@
 function myFunction() {
   var callbackFunction = function(data) {
     var weather = data.query.results.channel.item;
-    var temp =(weather.temp);
+    var temp1 =(weather.temp);
     var conditions = (weather.text);
   };
-  document.getElementById("temp").innerHTML = temp;
+  document.getElementById("temp1").innerHTML = temp1;
   document.getElementById("conditions").innerHTML = conditions;
   };
 </script>
@@ -17,7 +17,7 @@ function myFunction() {
 </head>
 <body onload="myFunction()">
 <header>
-<h1> The Weather Today in Halifax is <div id="temp"> </div> F and the conditions are <div id="conditions"> </div> </h1>
+<h1> The Weather Today in Halifax is <div id="temp1"> </div> F and the conditions are <div id="conditions"> </div> </h1>
 </header>
 /<body>
 <html>
