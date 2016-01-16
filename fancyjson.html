@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html >
+    <head>
+        <title>Halifax's Weather: JSON called from an API made Pretty </title>
+         <style type="text/css"> //this is where I make the website pretty
+         body {
+         
+         }
+         h1, h2 {
+        
+         }
+         h1 {
+         
+         }
+         </style>
+        <script>
+var myVar = setInterval(
+  var callbackFunction = function(data) { 
+    var condition = data.query.results.channel.item.condition;  // everything the same as the last page just with beautiful CSS
+    document.getElementById("temperature").innerHTML = condition.temp;
+    document.getElementById("conditions").innerHTML = condition.text;
+  };,
+  5000);
+</script>
+        
+        <script src="https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text=%27halifax,%20ns%27%29&format=json&callback=callbackFunction"></script>
+     <!-- the above example was adapted from Yahoo's weather API documentation -->
+    </head>
+    <body>
+        <header> <h1> Halifax's Current Weather </h1></header>
+        <article> <section> 
+        <h2>Current Temperature is:  <div id="temperature"></div> </h2>
+        <h2>Current Conditions are: <div id="conditions"></div> </h2>
+        
+        </section>
+        </article>
+        <footer>
+        <h2> Conditions updated every 5 seconds</h2>
+        </fotter>
+    </body>
+</html>
