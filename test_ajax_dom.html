@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+function myFunction() {
+  var callbackFunction = function(data) {
+    var weather = data.query.results.channel.item;
+    var temp =(weather.temp);
+    var conditions = (weather.text);
+  };
+  document.getElementById("temp").innerHTML = temp;
+  document.getElementById("conditions").innerHTML = conditions;
+  };
+</script>
+<script src="https://query.yahooapis.com/v1/public/yql?q=select wind from weather.forecast where woeid in (select woeid from geo.places(1) where text='Halifax, ns')&format=json&callback=callbackFunction"></script>
+</head>
+<body onload="myFunction()">
+<header>
+<h1> The Weather Today in Halifax is <div id="temp"> </div> F and the conditions are <div id="conditions"> </div> </h1>
+</header>
+/<body>
+<html>
