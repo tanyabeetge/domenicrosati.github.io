@@ -3,7 +3,7 @@
 <html >
     <head>
         <title>How api's are used by javascript</title>
-         
+         <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script>
          /*Api's are used in many ways by Javascript on the client-side - ie. code run by the browser 
          *There are lots of methods including some from libraries, such as Jquery, which make API communication really easy
@@ -11,20 +11,31 @@
          *Here we are going to ask for JSON data from Yahoo's weather app for Halifax's current temperature and conditions
          *Here we are actually asking for JSON in the form of a callback function if you put script src in the browser you will download a txt containing that function
          *Asking for JSON in other ways would be handled differently
-         */
-  var callbackFunction = function(data) { //we are basically saying when the website loads, pass the JSON we have received from that script src below into a variable called data... again we are calling a function that contains JSON as noted in the script src
-    var condition = data.query.results.channel.item.condition; //JSON is literally a Javascript object, the syntax for which is just this.that.that.and.so.on, here I am just shortening it to conditions
-    alert('The current temperature in halifax, in F, is:');//now I am going to alert you what the conditions are
-    alert(condition.temp);//rember JSON is an object so condition is a short form of the above data.results... - within condition there is nested data I want - tempurature
-    alert('The current conditions in halifax are:');
-    alert(condition.text); //here is more nested data - conditions. text
-  };
+        
+      
+               
+    
+)};
+  }; 
+ */
+ $(function() {
+     var url = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text=%27halifax,%20ns%27%29&format=json" ;
+                $.getJSON(url, function(data) {
+                     var condition = data.query.results.channel.item.condition; //JSON is literally a Javascript object, the syntax for which is just this.that.that.and.so.on, here I am just shortening it to conditions
+                     alert('The current temperature in halifax, in F, is:');//now I am going to alert you what the conditions are
+                     alert(condition.temp);//rember JSON is an object so condition is a short form of the above data.results... - within condition there is nested data I want - tempurature
+                     alert('The current conditions in halifax are:');
+                     alert(condition.text); //here is more nested data - conditions. text
+                });
+});
+  
+
 </script>
         
-        <script src="https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text=%27halifax,%20ns%27%29&format=json&callback=callbackFunction"></script>
+       
      <!-- the above example was adapted from Yahoo's weather API documentation -->
     </head>
     <body>
-        <header> <h1> That was boring, dom, and it doesnt really capture how websites/web apps display json data can you <a href="fancyjson.html">show me that</a> </h1></header>
+        <header> <h1 id="demo"> That was boring, dom, and it doesnt really capture how websites/web apps display json data can you <a href="fancyjson.html">show me that</a> </h1></header>
     </body>
 </html>
