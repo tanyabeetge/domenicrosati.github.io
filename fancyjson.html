@@ -1,4 +1,8 @@
 
+  
+   
+   
+   
 <!DOCTYPE html>
 <html >
     <head>
@@ -6,41 +10,41 @@
          <style>
              body { background-color: gold; }
              h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 100px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
-
 h2 { color: #111; font-family: 'Open Sans', sans-serif; font-size: 30px; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }
          </style>
+		 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
         <script>
+		
          /*Api's are used in many ways by Javascript on the client-side - ie. code run by the browser 
          *There are lots of methods including some from libraries, such as Jquery, which make API communication really easy
          *Here we are going to ask for JSON data from Yahoo's weather app for Halifax's current temperature and conditions
          */
-         var foo; // here we have to define variables outside the callback function to contain some data
-         var bar;
-         
-  var callbackFunction = function(data) { //we are basically saying when the website loads, pass the JSON we have received from that script src below into a variable called data
-    var condition = data.query.results.channel.item.condition; //JSON is literally a Javascript object, the syntax for which is just this.that.that.and.so.on, here I am just shortening it to conditions
-    
-    foo = condition.temp;//pass that JSON data into my foo
-    
-    bar = condition.text; //and my bar
-  };
-  function writestuff() {
-  
-    document.getElementById("temp").innerHTML = foo ;
-    document.getElementById("con").innerHTML = bar ;
+function getweather() {
+    var url = "https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text=%27halifax,%20ns%27%29&format=json" ;
+                $.getJSON(url, function(data) {
+                     var condition = data.query.results.channel.item.condition; //JSON is literally a Javascript object, the syntax for which is just this.that.that.and.so.on, here I am just shortening it to 
+					 $("#temp").html(condition.temp);
+					 $("#con").html(condition.text);
+                });
+  }; 
+$(function() {
+	getweather();
+ 
+});
+window.setInterval(getweather(), 500);
 
-  }
 
+       
+ 
 </script>
-        
-        <script src="https://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20woeid%20in%20%28select%20woeid%20from%20geo.places%281%29%20where%20text=%27halifax,%20ns%27%29&format=json&callback=callbackFunction"></script>
+       
      <!-- the above example was adapted from Yahoo's weather API documentation -->
-        <body onload="writestuff()">
+        <body>
             <header> <h1> Halifax's Current Weather Web App </h1></header>
             <article> <section> 
                 <h2>Current Temperature is:  <div id="temp"></div> </h2>
                 <h2>Current Conditions are: <div id="con"></div> </h2>
-                
+                <h2> Conditions reloaded every 5 seconds </h2>
             </section>
             </article>
   
